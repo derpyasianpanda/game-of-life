@@ -8,10 +8,17 @@ namespace GameOfLife
     {
         public static void Main(string[] args)
         {
+            const int SleepIncrement = 50;
+
+            bool needsRedraw = true;
             bool isRunning = true;
             bool enableMoreInfo = false;
             int sleepAmount = 500;
-            Board grid = new Board();
+            DateTime timeOfLastEvolution = DateTime.Now;
+            GameGrid grid = new GameGrid();
+
+            Console.SetWindowSize(150, 50);
+            Console.SetWindowPosition(0, 0);
 
             Console.CancelKeyPress += (sender,  args) =>
             {
@@ -25,26 +32,40 @@ namespace GameOfLife
             {
                 while (Console.KeyAvailable == false)
                 {
-                    PrintInfo(sleepAmount, enableMoreInfo);
-                    PrintBoard(grid, sleepAmount);
-                    grid.NextGeneration();
+                    if (needsRedraw)
+                    {
+                        PrintInfo(sleepAmount, enableMoreInfo);
+                        PrintGrid(grid);
+                        needsRedraw = false;
+                    }
+                    if ((DateTime.Now - timeOfLastEvolution).TotalMilliseconds 
+                        >= sleepAmount)
+                    {
+                        grid.NextGeneration();
+                        timeOfLastEvolution = DateTime.Now;
+                        needsRedraw = true;
+                    }
                 }
                 ConsoleKey key = Console.ReadKey(true).Key;
-                switch (key) 
+                needsRedraw = true;
+                switch (key)
                 {
                     case ConsoleKey.F1:
                         enableMoreInfo = !enableMoreInfo;
                         break;
                     case ConsoleKey.F5:
-                        grid = new Board();
+                        grid = new GameGrid();
+                        timeOfLastEvolution = DateTime.Now;
                         break;
                     case ConsoleKey.UpArrow:
-                        sleepAmount += 100;
+                        sleepAmount += SleepIncrement;
                         break;
                     case ConsoleKey.DownArrow:
-                        sleepAmount -= sleepAmount < 100 ? sleepAmount : 100;
+                        sleepAmount -= sleepAmount < SleepIncrement ?
+                            sleepAmount : SleepIncrement;
                         break;
                     default:
+                        needsRedraw = false;
                         break;
                 }
             }
@@ -67,7 +88,8 @@ namespace GameOfLife
                     "Press F5 to refresh the board"
                     .PadRight(Console.WindowWidth, ' '));
                 Console.WriteLine(
-                    $"Game updating every {sleepAmount}ms"
+                    ($"Evolving every {sleepAmount}ms " +
+                    $"(Up and Down arrow keys to adjust time)")
                     .PadRight(Console.WindowWidth, ' '));
                 Console.WriteLine(
                     "Press Ctrl + C to exit the app"
@@ -76,7 +98,7 @@ namespace GameOfLife
             Console.WriteLine(new string(' ', Console.WindowWidth));
         }
 
-        public static void PrintBoard(Board board, int sleepAmount)
+        public static void PrintGrid(GameGrid board)
         {
             Console.Write(board);
             // Loop ensures no remnants from past boards
@@ -84,11 +106,8 @@ namespace GameOfLife
             {
                 Console.Write("\r" + new string(' ', Console.WindowWidth) + "\n");
             }
-            if (sleepAmount > 0) Thread.Sleep(sleepAmount);
         }
     }
-
-    public enum Status { Dead , Alive };
 
     class Tile
     {
@@ -99,13 +118,13 @@ namespace GameOfLife
         }
     }
 
-    class Board
+    class GameGrid
     {        
         public Tile[,] Grid { get; set; }
         public int Rows { get; set; }
         public int Columns { get; set; }
 
-        public Board(int rows = 75, int columns = 20,
+        public GameGrid(int rows = 125, int columns = 35,
             double initialPercentage = 0.1)
         {
             Rows = rows;
@@ -171,4 +190,6 @@ namespace GameOfLife
             return neighbors;
         }
     }
+
+    public enum Status { Dead, Alive };
 }

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "XR5U/DhIXWpPt+V+Lz+Sixi1pg/1drwLt9VfDsi85QizLC5Ub9hDDKsJMM2vToZd1p6Mv6GjAdn/II0p2rhzCw==",
+  "success": true,
+  "projectFilePath": "D:\\Documents\\Computer Science\\GameOfLife\\GameOfLife\\GameOfLife.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\minec\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\3.1.6\\microsoft.netcore.app.runtime.win-x64.3.1.6.nupkg.sha512",
+    "C:\\Users\\minec\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\3.1.6\\microsoft.windowsdesktop.app.runtime.win-x64.3.1.6.nupkg.sha512",
+    "C:\\Users\\minec\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\3.1.6\\microsoft.aspnetcore.app.runtime.win-x64.3.1.6.nupkg.sha512"
+  ],
+  "logs": []
+}
