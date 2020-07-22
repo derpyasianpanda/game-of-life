@@ -1,0 +1,13 @@
+D:\Documents\Computer Science\GameOfLife\GameOfLife\bin\Debug\netcoreapp3.1\GameOfLife.exe
+D:\Documents\Computer Science\GameOfLife\GameOfLife\bin\Debug\netcoreapp3.1\GameOfLife.deps.json
+D:\Documents\Computer Science\GameOfLife\GameOfLife\bin\Debug\netcoreapp3.1\GameOfLife.runtimeconfig.json
+D:\Documents\Computer Science\GameOfLife\GameOfLife\bin\Debug\netcoreapp3.1\GameOfLife.runtimeconfig.dev.json
+D:\Documents\Computer Science\GameOfLife\GameOfLife\bin\Debug\netcoreapp3.1\GameOfLife.dll
+D:\Documents\Computer Science\GameOfLife\GameOfLife\bin\Debug\netcoreapp3.1\GameOfLife.pdb
+D:\Documents\Computer Science\GameOfLife\GameOfLife\obj\Debug\netcoreapp3.1\GameOfLife.csprojAssemblyReference.cache
+D:\Documents\Computer Science\GameOfLife\GameOfLife\obj\Debug\netcoreapp3.1\GameOfLife.AssemblyInfoInputs.cache
+D:\Documents\Computer Science\GameOfLife\GameOfLife\obj\Debug\netcoreapp3.1\GameOfLife.AssemblyInfo.cs
+D:\Documents\Computer Science\GameOfLife\GameOfLife\obj\Debug\netcoreapp3.1\GameOfLife.csproj.CoreCompileInputs.cache
+D:\Documents\Computer Science\GameOfLife\GameOfLife\obj\Debug\netcoreapp3.1\GameOfLife.dll
+D:\Documents\Computer Science\GameOfLife\GameOfLife\obj\Debug\netcoreapp3.1\GameOfLife.pdb
+D:\Documents\Computer Science\GameOfLife\GameOfLife\obj\Debug\netcoreapp3.1\GameOfLife.genruntimeconfig.cache
