@@ -17,7 +17,7 @@ namespace GameOfLife
             {
                 isRunning = false;
                 Console.WriteLine("\nQuitting Application");
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
                 Environment.Exit(0);
             };
 
@@ -48,11 +48,10 @@ namespace GameOfLife
                 }
             }
         }
+
         public static void PrintOver(string content, int sleepAmount,
             bool enableMoreInfo)
         {
-            string moreInfo = "Press F5 to refresh the board\n" +
-                $"Evolving every {sleepAmount}ms\n";
             Console.BackgroundColor = ConsoleColor.Black;
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 0);
@@ -61,8 +60,26 @@ namespace GameOfLife
                 "(Originally by John Conway)\n" +
                 "Press F1 to toggle more information"
                 );
-            if (enableMoreInfo) Console.WriteLine(moreInfo);
+            if (enableMoreInfo)
+            {
+                // Padding is to ensure no remnants from the board
+                Console.WriteLine(
+                    "Press F5 to refresh the board"
+                    .PadRight(Console.WindowWidth, ' '));
+                Console.WriteLine(
+                    $"Game updating every {sleepAmount}ms"
+                    .PadRight(Console.WindowWidth, ' '));
+                Console.WriteLine(
+                    "Press Ctrl + C to exit the app"
+                    .PadRight(Console.WindowWidth, ' '));
+            }
+            Console.WriteLine(new string(' ', Console.WindowWidth));
             Console.WriteLine(content);
+            // Loop ensures no remnants from past boards
+            for (int i = Console.CursorTop; i < Console.WindowHeight - 1; i++)
+            {
+                Console.Write(new string(' ', Console.WindowWidth) + "\n");
+            }
             if (sleepAmount > 0) Thread.Sleep(sleepAmount);
         }
     }
