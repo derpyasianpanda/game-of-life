@@ -25,7 +25,8 @@ namespace GameOfLife
             {
                 while (Console.KeyAvailable == false)
                 {
-                    PrintOver(grid.ToString(), sleepAmount, enableMoreInfo);
+                    PrintInfo(sleepAmount, enableMoreInfo);
+                    PrintBoard(grid, sleepAmount);
                     grid.NextGeneration();
                 }
                 ConsoleKey key = Console.ReadKey(true).Key;
@@ -49,8 +50,7 @@ namespace GameOfLife
             }
         }
 
-        public static void PrintOver(string content, int sleepAmount,
-            bool enableMoreInfo)
+        public static void PrintInfo(int sleepAmount, bool enableMoreInfo)
         {
             Console.BackgroundColor = ConsoleColor.Black;
             Console.CursorVisible = false;
@@ -74,11 +74,15 @@ namespace GameOfLife
                     .PadRight(Console.WindowWidth, ' '));
             }
             Console.WriteLine(new string(' ', Console.WindowWidth));
-            Console.WriteLine(content);
+        }
+
+        public static void PrintBoard(Board board, int sleepAmount)
+        {
+            Console.Write(board);
             // Loop ensures no remnants from past boards
             for (int i = Console.CursorTop; i < Console.WindowHeight - 1; i++)
             {
-                Console.Write(new string(' ', Console.WindowWidth) + "\n");
+                Console.Write("\r" + new string(' ', Console.WindowWidth) + "\n");
             }
             if (sleepAmount > 0) Thread.Sleep(sleepAmount);
         }
