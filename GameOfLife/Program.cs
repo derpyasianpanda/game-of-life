@@ -19,6 +19,7 @@ namespace GameOfLife
 
             Console.SetWindowSize(150, 50);
             Console.SetWindowPosition(0, 0);
+            Console.CursorVisible = false;
 
             Console.CancelKeyPress += (sender,  args) =>
             {
@@ -34,6 +35,7 @@ namespace GameOfLife
                 {
                     if (needsRedraw)
                     {
+                        Console.SetCursorPosition(0, 0);
                         PrintInfo(sleepAmount, enableMoreInfo);
                         PrintGrid(grid);
                         needsRedraw = false;
@@ -73,9 +75,6 @@ namespace GameOfLife
 
         public static void PrintInfo(int sleepAmount, bool enableMoreInfo)
         {
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.CursorVisible = false;
-            Console.SetCursorPosition(0, 0);
             Console.WriteLine(
                 "Welcome to the KV's Game of Life " +
                 "(Originally by John Conway)\n" +
@@ -86,25 +85,28 @@ namespace GameOfLife
                 // Padding is to ensure no remnants from the board
                 Console.WriteLine(
                     "Press F5 to refresh the board"
-                    .PadRight(Console.WindowWidth, ' '));
+                    .PadRight(Console.WindowWidth - 1, ' '));
                 Console.WriteLine(
                     ($"Evolving every {sleepAmount}ms " +
                     $"(Up and Down arrow keys to adjust time)")
-                    .PadRight(Console.WindowWidth, ' '));
+                    .PadRight(Console.WindowWidth - 1, ' '));
                 Console.WriteLine(
                     "Press Ctrl + C to exit the app"
-                    .PadRight(Console.WindowWidth, ' '));
+                    .PadRight(Console.WindowWidth - 1, ' '));
             }
-            Console.WriteLine(new string(' ', Console.WindowWidth));
+            Console.WriteLine(new string(' ', Console.WindowWidth - 1));
         }
 
         public static void PrintGrid(GameGrid board)
         {
             Console.Write(board);
             // Loop ensures no remnants from past boards
-            for (int i = Console.CursorTop; i < Console.WindowHeight - 1; i++)
+
+            //TODO: Find out why the Loop below glitches out for .exe version but not
+            //for version in Visual Studio when I don't use "- 1"
+            for (int i = Console.CursorTop; i < 49; i++)
             {
-                Console.Write("\r" + new string(' ', Console.WindowWidth) + "\n");
+                Console.Write(new string(' ', Console.WindowWidth - 1) + "\n");
             }
         }
     }
@@ -125,7 +127,7 @@ namespace GameOfLife
         public int Columns { get; set; }
 
         public GameGrid(int rows = 125, int columns = 35,
-            double initialPercentage = 0.1)
+            double initialPercentage = 0.07)
         {
             Rows = rows;
             Columns = columns;
@@ -167,8 +169,7 @@ namespace GameOfLife
                 {
                     int neighbors = GetNeighbors(x, y);
                     if (neighbors < 2 || neighbors > 3) Grid[x, y].State = Status.Dead;
-                    else Grid[x, y].State =
-                            neighbors == 3 ? Status.Alive : Grid[x, y].State;
+                    else if (neighbors == 3) Grid[x, y].State = Status.Alive;
                 }
             }
         }

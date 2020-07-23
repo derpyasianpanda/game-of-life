@@ -10,3 +10,4 @@ D:\Documents\Computer Science\GameOfLife\GameOfLife\obj\Debug\netcoreapp3.1\Game
 D:\Documents\Computer Science\GameOfLife\GameOfLife\obj\Debug\netcoreapp3.1\GameOfLife.dll
 D:\Documents\Computer Science\GameOfLife\GameOfLife\obj\Debug\netcoreapp3.1\GameOfLife.pdb
 D:\Documents\Computer Science\GameOfLife\GameOfLife\obj\Debug\netcoreapp3.1\GameOfLife.genruntimeconfig.cache
+D:\Documents\Computer Science\GameOfLife\GameOfLife\obj\Debug\netcoreapp3.1\GameOfLife.csprojAssemblyReference.cache
