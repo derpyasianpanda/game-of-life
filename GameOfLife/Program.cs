@@ -75,26 +75,28 @@ namespace GameOfLife
 
         public static void PrintInfo(int sleepAmount, bool enableMoreInfo)
         {
-            Console.WriteLine(
+            Console.Write((
                 "Welcome to the KV's Game of Life " +
-                "(Originally by John Conway)\n" +
-                "Press F1 to toggle more information"
-                );
+                "(Originally by John Conway)")
+                .PadRight(Console.WindowWidth));
+            Console.Write((
+                "Press F1 to toggle more information")
+                .PadRight(Console.WindowWidth));
             if (enableMoreInfo)
             {
                 // Padding is to ensure no remnants from the board
-                Console.WriteLine(
+                Console.Write(
                     "Press F5 to refresh the board"
-                    .PadRight(Console.WindowWidth - 1, ' '));
-                Console.WriteLine(
+                    .PadRight(Console.WindowWidth));
+                Console.Write(
                     ($"Evolving every {sleepAmount}ms " +
                     $"(Up and Down arrow keys to adjust time)")
-                    .PadRight(Console.WindowWidth - 1, ' '));
-                Console.WriteLine(
+                    .PadRight(Console.WindowWidth));
+                Console.Write(
                     "Press Ctrl + C to exit the app"
-                    .PadRight(Console.WindowWidth - 1, ' '));
+                    .PadRight(Console.WindowWidth));
             }
-            Console.WriteLine(new string(' ', Console.WindowWidth - 1));
+            Console.Write(new string(' ', Console.WindowWidth));
         }
 
         public static void PrintGrid(GameGrid board)
@@ -106,7 +108,7 @@ namespace GameOfLife
             //for version in Visual Studio when I don't use "- 1"
             for (int i = Console.CursorTop; i < 49; i++)
             {
-                Console.Write(new string(' ', Console.WindowWidth - 1) + "\n");
+                Console.Write(new string(' ', Console.WindowWidth));
             }
         }
     }
@@ -152,11 +154,12 @@ namespace GameOfLife
             string result = "";
             for (int y = 0; y < Columns; y++)
             {
+                string temp = "";
                 for (int x = 0; x < Rows; x++)
                 {
-                    result += Grid[x, y].State == Status.Dead ? " " : "O";
+                    temp += Grid[x, y].State == Status.Dead ? " " : "O";
                 }
-                result += "\n";
+                result += temp.PadRight(Console.WindowWidth);
             }
             return result;
         }
