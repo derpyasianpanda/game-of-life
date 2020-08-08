@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -139,10 +140,10 @@ namespace GameOfLife
             {
                 for (int y = 0; y < Columns; y++)
                 {
-                    Grid[x, y] = 
+                    Grid[x, y] =
                         new Tile(
-                            (Status) 
-                            (numberGenerator.NextDouble() < initialPercentage 
+                            (Status)
+                            (numberGenerator.NextDouble() < initialPercentage
                                 ? 1 : 0)
                         );
                 }
@@ -166,28 +167,38 @@ namespace GameOfLife
 
         public void NextGeneration()
         {
+            Tile[,] ogGrid = new Tile[Rows, Columns];
             for (int x = 0; x < Rows; x++)
             {
                 for (int y = 0; y < Columns; y++)
                 {
-                    int neighbors = GetNeighbors(x, y);
+                    ogGrid[x, y] = new Tile(Grid[x, y].State);
+                }
+            }
+
+            for (int x = 0; x < Rows; x++)
+            {
+                for (int y = 0; y < Columns; y++)
+                {
+                    int neighbors = GetNeighbors(x, y, ogGrid);
                     if (neighbors < 2 || neighbors > 3) Grid[x, y].State = Status.Dead;
                     else if (neighbors == 3) Grid[x, y].State = Status.Alive;
                 }
             }
         }
 
-        private int GetNeighbors(int xStart, int yStart)
+        private int GetNeighbors(int xStart, int yStart, Tile[,] grid)
         {
             int neighbors = 0;
             for (int x = xStart - 1; x <= xStart + 1; x++)
             {
                 for (int y = yStart - 1; y <= yStart + 1; y++)
                 {
-                    if (x < Rows && y < Columns && x > 0 && y > 0 && 
-                        (x != xStart || y != yStart))
+                    int tempX = x == Rows ? 0 : (x == -1 ? Rows - 1 : x);
+                    int tempY = y == Columns ? 0 : (y == -1 ? Columns - 1 : y);
+                    if (x != xStart || y != yStart)
                     {
-                        neighbors += (int) Grid[x, y].State;
+                        neighbors += (int) grid[tempX, tempY].State;
                     }
                 }
             }
